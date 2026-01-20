@@ -5,7 +5,7 @@ A dotfiles manager written in Rust
 - You must have an environment variable `DF_TARGET`. Put the path of dotfiles repository in it. There is no fallback or default value.
 - 1st param: `push` or `pull`. `push` is original -> copy. `pull` is copy -> original.
 - 2nd param: the directory path where `df-list.toml` exists.
-- Example: `df push win11` `df pull ubuntu`
+- Examples: `df push win11` `df pull ubuntu`, ...
 - Check [my dotfiles](https://github.com/yz-5555/dotfiles) to see how a `df-list.toml` look like.
 
 # Why
