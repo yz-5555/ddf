@@ -6,7 +6,7 @@ A dotfiles manager written in Rust
 - 1st param: `push` or `pull`. `push` is original -> copy. `pull` is copy -> original.
 - 2nd param: the directory path where `df-list.toml` exists.
 - Example: `df push win11` `df pull ubuntu`
-- Check [my dotfiles](github.com/yz-5555/dotfiles) to see how a `df-list.toml` look like.
+- Check [my dotfiles](https://github.com/yz-5555/dotfiles) to see how a `df-list.toml` look like.
 
 # Why
 I got bored. I don't like writing pwsh scripts. I needed a cross-platform tool.
