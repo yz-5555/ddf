@@ -9,7 +9,7 @@ A dotfiles manager written in Rust
 - Check [my dotfiles](https://github.com/yz-5555/dotfiles) to see how a `df-list.toml` look like.
 
 # Why
-I got bored. I don't like writing pwsh scripts. I needed a cross-platform tool for my dotfiles.
+Writing pwsh script is way too painful.
 
 # Notes
 - Not on crates.io.
