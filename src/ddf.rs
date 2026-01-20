@@ -8,21 +8,21 @@ use super::cli::{Args, Mode};
 use super::list::List;
 
 pub fn run() {
-    read_df_target();
-    read_df_list();
+    read_ddf_target();
+    read_ddf_list();
 }
-pub fn read_df_target() {
-    let key = "DF_TARGET";
+pub fn read_ddf_target() {
+    let key = "DDF_TARGET";
 
     match env::var(key) {
         Ok(val) => env::set_current_dir(val).expect("ERR: FAILED TO CHANGE CWD"),
-        Err(e) => panic!("ERR: FAILED TO READ DF_TARGET / {}", e),
+        Err(e) => panic!("ERR: FAILED TO READ DDF_TARGET / {}", e),
     }
 }
-pub fn read_df_list() {
+pub fn read_ddf_list() {
     let args = Args::parse();
     let mut list_path = untildify(&args.list_dir);
-    list_path.push("df-list.toml");
+    list_path.push("ddf-list.toml");
 
     let contents = fs::read_to_string(&list_path).expect("ERR: WRONG PATH");
 
@@ -32,10 +32,9 @@ pub fn read_df_list() {
         .expect("ERR: FAILED TO CHANGE CWD");
 
     for dotfile in list.dotfiles {
-        if matches!(args.mode, Mode::Push) {
-            update(&dotfile.original, &dotfile.copy);
-        } else {
-            update(&dotfile.copy, &dotfile.original);
+        match args.mode {
+            Mode::Push => update(&dotfile.original, &dotfile.copy),
+            Mode::Pull => update(&dotfile.copy, &dotfile.original),
         }
     }
 }
