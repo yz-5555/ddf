@@ -3,5 +3,6 @@ mod ddf;
 mod list;
 
 fn main() {
-    ddf::run();
+    ddf::read_ddf_target();
+    ddf::read_ddf_list();
 }

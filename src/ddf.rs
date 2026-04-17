@@ -7,10 +7,6 @@ use fs_extra::dir::{CopyOptions, copy};
 use super::cli::{Args, Mode};
 use super::list::List;
 
-pub fn run() {
-    read_ddf_target();
-    read_ddf_list();
-}
 pub fn read_ddf_target() {
     let key = "DDF_TARGET";
 
@@ -38,14 +34,13 @@ pub fn read_ddf_list() {
         }
     }
 }
-pub fn update(src: &str, dst: &str) {
+fn update(src: &str, dst: &str) {
     let s = untildify(src);
     let d = untildify(dst);
     let mut options = CopyOptions::new();
     options.content_only = true;
     options.overwrite = true;
 
-    // Remove destination if it exists
     if d.exists() {
         if d.is_file() {
             fs::remove_file(&d)
@@ -56,22 +51,19 @@ pub fn update(src: &str, dst: &str) {
         }
     }
 
-    // if s.is_file() and d.is_file() result differently, it's totally fucked up.
     if s.is_file() {
         fs::copy(s, d)
             .unwrap_or_else(|e| panic!("ERR: FAILED TO COPY FILE {} to {} / {}", src, dst, e));
         println!("LOG: COPIED FILE {} TO {}", src, dst);
-        // println!("file, exists: s{} d{}", Path::exists(s), Path::exists(d));
     } else if s.is_dir() {
         copy(s, d, &options)
             .unwrap_or_else(|e| panic!("ERR: FAILED TO COPY DIR {} TO {} / {}", src, dst, e));
         println!("LOG: COPIED DIR {} TO {}", src, dst);
-        // println!("dir, exists: s{} d{}", Path::exists(s), Path::exists(d));
     } else {
         println!("WARN: {} NOT FOUND", src);
     }
 }
-pub fn untildify(input_path: &str) -> PathBuf {
+fn untildify(input_path: &str) -> PathBuf {
     let path = Path::new(input_path);
 
     if path.starts_with("~") {
