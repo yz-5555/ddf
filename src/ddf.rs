@@ -45,6 +45,17 @@ pub fn update(src: &str, dst: &str) {
     options.content_only = true;
     options.overwrite = true;
 
+    // Remove destination if it exists
+    if d.exists() {
+        if d.is_file() {
+            fs::remove_file(&d)
+                .unwrap_or_else(|e| panic!("ERR: FAILED TO REMOVE FILE {} / {}", dst, e));
+        } else if d.is_dir() {
+            fs::remove_dir_all(&d)
+                .unwrap_or_else(|e| panic!("ERR: FAILED TO REMOVE DIR {} / {}", dst, e));
+        }
+    }
+
     // if s.is_file() and d.is_file() result differently, it's totally fucked up.
     if s.is_file() {
         fs::copy(s, d)
