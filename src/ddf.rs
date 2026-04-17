@@ -45,9 +45,11 @@ fn update(src: &str, dst: &str) {
         if d.is_file() {
             fs::remove_file(&d)
                 .unwrap_or_else(|e| panic!("ERR: FAILED TO REMOVE FILE {} / {}", dst, e));
+            println!("LOG: REMOVED FILE {}", dst);
         } else if d.is_dir() {
             fs::remove_dir_all(&d)
                 .unwrap_or_else(|e| panic!("ERR: FAILED TO REMOVE DIR {} / {}", dst, e));
+            println!("LOG: REMOVED DIR {}", dst);
         }
     }
 
